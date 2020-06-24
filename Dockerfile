@@ -6,4 +6,4 @@ COPY . /app
 
 RUN pip install semver
 
-ENTRYPOINT ["/bin/bash", "-c"]
+ENTRYPOINT ["entrypoint.sh"]
