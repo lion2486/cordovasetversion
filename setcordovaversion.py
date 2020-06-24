@@ -80,22 +80,24 @@ def setVersionAndBuildNumbers(versionNumber, buildNumber, configFile):
 #####
 # Entry point, run the script...
 #####
-if (len(sys.argv) == 4):
-	if (os.path.isfile(sys.argv[3])):
-		# Check that first arugment is valid, Cordova needs 0.0.0 type format
-		if (isValidCordovaVersionString(sys.argv[1])):
-			# Check that the second argument is valid, Cordova needs a number
-			if (isValidCordovaBuildString(sys.argv[2])):
-				setVersionAndBuildNumbers(sys.argv[1], sys.argv[2], sys.argv[3])
-				print sys.argv[3] + ' updated successfully'
+if __name__ == "__main__":
+	# execute only if run as a script
+	if (len(sys.argv) == 4):
+		if (os.path.isfile(sys.argv[3])):
+			# Check that first arugment is valid, Cordova needs 0.0.0 type format
+			if (isValidCordovaVersionString(sys.argv[1])):
+				# Check that the second argument is valid, Cordova needs a number
+				if (isValidCordovaBuildString(sys.argv[2])):
+					setVersionAndBuildNumbers(sys.argv[1], sys.argv[2], sys.argv[3])
+					print sys.argv[3] + ' updated successfully'
+				else:
+					print '*****ERROR: buildNumber must be an integer number'
+					sys.exit(1)
 			else:
-				print '*****ERROR: buildNumber must be an integer number'
+				print '*****ERROR: versionNumber must be of the form 0.0.0'
 				sys.exit(1)
 		else:
-			print '*****ERROR: versionNumber must be of the form 0.0.0'
-			sys.exit(1)
+			print '*****ERROR: ' + sys.argv[3] + ' file does not exist'
 	else:
-		print '*****ERROR: ' + sys.argv[3] + ' file does not exist'
-else:
-	print '*****ERROR: Expecting 3 parameters: versionNumber buildNumber config.xml'
-	sys.exit(1)
+		print '*****ERROR: Expecting 3 parameters: versionNumber buildNumber config.xml'
+		sys.exit(1)
