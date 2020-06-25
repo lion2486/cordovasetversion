@@ -1,4 +1,3 @@
-  GNU nano 3.2                                       increaseVersion.py                                                 
 from getVersion import getVersion
 from setcordovaversion import setVersionAndBuildNumbers
 import semver
@@ -20,7 +19,12 @@ def increaseVersion(filename, level):
         # TODO also cover build increase later
         setVersionAndBuildNumbers(sem.__str__(), '1', filename)
 
+        return sem.__str__()
+
 if __name__ == "__main__":
         # execute only if run as a script
-        increaseVersion(sys.argv[1], sys.argv[2])
-        # TODO add some CLI help text and validation
+        if (len(sys.argv) == 3):
+                increaseVersion(sys.argv[1], sys.argv[2])
+        else:
+                print '*****ERROR: Expecting 2 parameters: <path for config.xml> <semver level: major|minor|patch>'
+                sys.exit(1)
